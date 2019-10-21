@@ -1,0 +1,245 @@
+@layout('template')
+@section('content')
+<script>
+awb = "http://localhost:3333/showawb"
+webix.ready(function(){
+  webix.i18n.parseTimeFormat = "%H:%i:%s";
+    var noawb = '';
+    webix.ajax().get('http://localhost:3333/newawb').then(function(data){
+       noawb = data.text();
+       $$('trnNoHAWBsort').setValue(noawb);
+    });
+    
+    webix.i18n.setLocale();
+
+    webix.ui({ responsive:true, container:"form",
+    rows: [
+        { type:"space",
+        cols:[ 
+            
+            {
+            view: "form", id: "frmShip", elements : [
+                
+                { cols:[ 
+                    
+                    { rows:[
+                    {view:"text", id:"trnNoHAWBsort", name: "trnNoHAWB", hidden:true},
+                    { view:"template", template:"Pengirim", type:"header" },
+                    { view:"text", id: "trnName", name: "trnName", label:"Nama Shipper", labelPosition: "top" },
+                    { view:"text", id: "trnAlm1", name: "trnAlm1", label:"Alamat", labelPosition: "top" },
+                    { view:"text", id: "trnAlm2", name: "trnAlm2", label:"&nbsp;", labelPosition: "top" },
+                    { view:"text", id: "trnAlm3", name: "trnAlm3", label:"&nbsp;", labelPosition: "top" },
+                    { cols:[
+                        { view:"text", id: "trnCity", name: "trnCity", label:"Kota", labelPosition: "top"},
+                        { view:"text", id: "trnPost", name: "trnPost", label:"Kodepos", labelPosition: "top" },
+                    ]},
+                    { cols:[
+                        { view:"text", id: "trnPhone", name: "trnPhone", label:"Telp", labelPosition: "top" },
+                        { view:"text", id: "trnFax", name: "trnFax", label:"Fax", labelPosition: "top" },
+                    ]},
+                    { view:"text", id: "trnContact", name: "trnContact", label:"Nama Pengirim", labelPosition: "top" }
+                    ]},
+                ]}
+        ]
+                },
+                {view: "form", id: "frmCons",  elements:[
+                
+                { rows:[
+                 { view:"template", template:"Penerima", type:"header" },
+                { view:"text", id: "trnConsName", name: "trnConsName", label:"Nama Consigne", labelPosition: "top" },
+                { view:"text", id: "trnConsAlm1", name: "trnConsAlm1", label:"Alamat", labelPosition: "top" },
+                { view:"text", id: "trnConsAlm2", name: "trnConsAlm2", label:"&nbsp;", labelPosition: "top" },
+                { view:"text", id: "trnConsAlm3", name: "trnConsAlm3", label:"&nbsp;", labelPosition: "top" },
+                { cols:[
+                    { view:"text", id: "trnConsCity", name: "trnConsCity", label:"Kota", labelPosition: "top" },
+                    { view:"text", id: "trnConsPost", name: "trnConsPost", label:"Kodepos", labelPosition: "top" },
+                ]},
+                { cols:[
+                    { view:"text", id: "trnConsPhone", name: "trnConsPhone", label:"Telp", labelPosition: "top" },
+                    { view:"text", id: "trnConsFax", name: "trnConsFax", label:"Fax", labelPosition: "top" },
+                ]},
+                { view:"text", id: "trnConsContact", name: "trnConsContact", label:"Nama Penerima", labelPosition: "top" }
+                ]}
+                ]
+                }
+                ,
+            
+            {type:"space", rows: [{
+              view: "form", id: "frmDesc",  elements:[
+            { view:"template", template:"Deskripsi", type:"header" },
+            {view:"textarea", id: "trnSpecialInstruction", name: "trnSpecialInstruction", label:"Desc", height:120, labelPosition: "top"
+            }] 
+            },
+             {
+            view: "form", id:"frmOrgDest", autoconfig:true, elements: [
+            { rows:[ 
+            { cols: [
+                {view:"textarea", id:"trnOrg", name:"trnOrg", label: "origin",
+                height:80, width:120,labelPosition: "top", labelAlign:"center"
+                }, {view:"textarea", id:"trnDest", name:"trnDest", label: "Destination",
+                height:80,  width:120, labelPosition: "top", labelAlign:"center"
+                }
+                
+            ]},
+            
+        ] } 
+            ]}     ]
+            }
+            
+            
+        ]
+        },
+        { type:"space",
+        cols:[
+            {
+            view: "form", id: "frmDetail",
+            rules:{
+             "trnchargeswt":webix.rules.isNumber,
+             "trnKoli":webix.rules.isNumber,
+             "trnDim_H":webix.rules.isNumber,
+             "trnDim_W":webix.rules.isNumber,
+             "trnDim_L":webix.rules.isNumber},
+            elements:[
+            { rows:[
+            { view:"template", template:"Detail Barang", type:"header" },
+            { view:"text", id:"trnchargeswt", name: "trnchargeswt", label:"Berat", labelPosition: "top", invalidMessage:"Harus diisi dengan angka!"},
+            { cols:[
+              	
+                { view:"text", id:"trnKoli", name: "trnKoli", label:"Coly", labelPosition: "top", invalidMessage:"Harus diisi dengan angka!"},
+                {}
+            ]},
+            { cols:[
+                { view:"text", id:"trnDim_H", name: "trnDim_H", label:"Dimensi", labelPosition: "top", invalidMessage:"Harus diisi dengan angka!" },
+                { view:"text", id:"trnDim_W", name: "trnDim_W", label:"&nbsp;", labelPosition: "top", invalidMessage:"Harus diisi dengan angka!"  },
+                { view:"text", id:"trnDim_L", name: "trnDim_L", label:"&nbsp;", labelPosition: "top", invalidMessage:"Harus diisi dengan angka!" },
+            ]},
+            
+            ]}
+            ]
+            }, 
+            {
+            view: "form", id: "frmPicU",  elements: [
+            { rows:[
+            { view:"template", template:"Request Pickup", type:"header" },
+            { view:"datepicker", id:"trnrequestpickup", name: "trnrequestpickup", label:"Request Pickup Date", 
+                labelPosition: "top", format:"%Y-%m-%d", stringResult:true, format:webix.i18n.parseTimeFormat = "%Y-%m-%d",  
+            },
+            { view:"datepicker", id:"trnrequestpickuptime", name: "trnrequestpickuptime", label:"Request Pickup Time", 
+                type:"time", labelPosition: "top", format:"%H:%i:%s", stringResult:true, format:webix.i18n.parseTimeFormat = "%H:%i:%s",  
+            }
+            ]}
+        ]
+            },
+          {
+              view:"form", id:" captcha", autoconfig:true, elements: [
+                {id:"capcha" },
+                { view:"button", id:"my_button", value:"Cetak AWBill", click:print}
+              ]
+            }
+        ]
+        },
+      {
+    autoheight:true,
+    view:"datatable", 
+    hidden:true,
+    url:awb,
+    columns:[
+         	 { id: "trnNoHAWB" , header : "No. AWB", width: 100 },
+      		 { id: "trnName" , header : "Ship. Name", width: 100 },
+      		 { id: "trnAlm1" , header : "Alm1", width: 100 },
+      		 { id: "trnAlm2" , header : "Alm2", width: 100 },
+      		 { id: "trnAlm3" , header : "Alm3", width: 100 },
+      		 { id: "trnCity" , header : "Kota", width: 100 },
+      		 { id: "trnPost" , header : "kd.pos", width: 100 },
+      		 { id: "trnFax" , header : "Fax", width: 100 },
+      		 { id: "trnContact" , header : "Kontak", width: 100 },
+      		 { id: "trnConsName" , header : "Cons. Name", width: 100 },
+      		 { id: "trnConsAlm1" , header : "Alm1", width: 100 },
+      		 { id: "trnConsAlm2" , header : "Alm2", width: 100 },
+      		 { id: "trnConsAlm3" , header : "Alm3", width: 100 },
+      		 { id: "trnConsCity" , header : "Kota", width: 100 },
+      		 { id: "trnConsPost" , header : "kd.pos", width: 100 },
+      		 { id: "trnConsFax" , header : "Fax", width: 100 },
+      		 { id: "trnConsContact" , header : "Kontak", width: 100 },    		 
+             { id: "trnchargeswt" , header : "Berat", width: 100 },
+             { id: "trnKoli" , header : "Koli", width: 100 },
+			 { id: "trnDim_H" , header : "Height", width: 100 },
+      		 { id: "trnDim_W" , header : "Width", width: 100 },
+      		 { id: "trnDim_L" , header : "Length", width: 100 },
+             { id: "trnpickup" , header : "Pickup Data", width: 100 },
+      		 { id: "trnpickuptime" , header : "Pickup Time", width: 100 },	 
+      		 { id: "trnOrg" , header : "TLC ORG", width: 100 },
+      		 { id: "trnDest" , header : "TLC DEST", width: 100 }
+      		 
+      ] , 
+    id:"tbl1", 
+    select:"row",
+    save:"rest->http://localhost:3333/awb"
+      }
+        
+        
+    ]
+    });
+  //fungsi box origin 
+$$("trnCity").attachEvent("onBlur", function(values){
+   var value = this.getValue();
+  webix.message(value);
+   webix.ajax().get("http://localhost:3333/kota/" + value ).then(function(data){
+        hasil = data.json();
+        hasil = hasil[0][0].tlTlcCode
+     	$$("trnOrg").setValue(hasil);
+	});
+});
+
+
+
+ function print(){
+
+    if ($$("frmDetail").validate()){
+      webix.message("Correct data!");
+      
+        var ins = [];
+        var val =  $$("frmShip").getValues();
+        var val1 = $$("frmCons").getValues();
+        var val2 = $$("frmDesc").getValues();
+        var val3 = $$("frmOrgDest").getValues();
+        var val4 = $$("frmDetail").getValues();
+        var val5 = $$("frmPicU").getValues();
+
+        ins = {...val,...val1,...val2,...val3,...val4,...val5}
+        console.log(ins)
+        $$("tbl1").add(ins);
+      	 	
+      window.open("http://localhost:3333/print/" + noawb )
+   
+    } else {
+      webix.alert("Perbaiki data yang telah diinput!");
+    }
+    
+    
+   
+ };
+  
+$$("trnConsCity").attachEvent("onBlur", function(values){
+   var value = this.getValue();
+  webix.message(value);
+   webix.ajax().get("http://localhost:3333/kota/" + value ).then(function(data){
+        hasil = data.json();
+        hasil = hasil[0][0].tlTlcCode
+     	$$("trnDest").setValue(hasil);
+	});
+});
+
+ window.grecaptcha.render($$("capcha").$view, {
+ sitekey:"6Lck4LwUAAAAAD3Ivayzg306xt5FPN8OlDVMBoIj"
+});
+
+
+  
+});
+
+
+
+
+</script> 
+@endsection
