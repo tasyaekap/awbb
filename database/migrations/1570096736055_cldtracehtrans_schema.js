@@ -7,6 +7,7 @@ class CldtracehtransSchema extends Schema {
     up() {
         this.create('cldtracehtrans', (table) => {
             table.string('trnNoHAWB', 35).index().primary().nullable()
+            table.string('Status', 20).notNullable().defaultTo('Not Submitted')
             table.enu('trnHouseAWB', ['False', 'True']).defaultTo('True')
             table.string('trnHAWBRef').defaultTo('2')
             table.date('trnDate').index()

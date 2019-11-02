@@ -16,6 +16,16 @@ class AwbController {
 
 
     }
+    async hosted({ request, response, view }) {
+        return view.render('hosted');
+    }
+    async testauth({ reqeust, response, view, auth }) {
+        console.log(auth);
+        return view.render("welcome")
+    }
+    async testwebix({ request, response, view, auth }) {
+        return view.render("testwebix");
+    }
 }
 
 module.exports = AwbController

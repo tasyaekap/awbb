@@ -16,9 +16,16 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.on('/').render('prnt')
+Route.on('/').render('login')
 
-Route.get('awb', 'CldtracehtranController.index')
+Route.post('/register', 'AuthController.register')
+Route.post('/login', 'AuthController.login')
+
+Route.get('showauth', 'AuthController.showawb')
+Route.get('awb', 'CldtracehtranController.index').middleware('auth')
+Route.get('hosted', 'AwbController.hosted')
+Route.get('testauth', "AwbController.testauth").middleware('auth')
+Route.get('testwebix', 'AwbController.testwebix').middleware('auth')
 Route.get('showawb', 'CldtracehtranController.showawb')
 Route.post('awb', 'CldtracehtranController.store')
 Route.get('newawb', 'AwbController.genAwb')
