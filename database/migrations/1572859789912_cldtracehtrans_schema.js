@@ -6,8 +6,8 @@ const Schema = use('Schema')
 class CldtracehtransSchema extends Schema {
     up() {
         this.create('cldtracehtrans', (table) => {
-            table.string('trnNoHAWB', 35).index().primary().nullable()
-            table.string('Status', 20).notNullable().defaultTo('Not Submitted')
+            table.increments()
+            table.string('trnNoHAWB', 35).notNullable()
             table.enu('trnHouseAWB', ['False', 'True']).defaultTo('True')
             table.string('trnHAWBRef').defaultTo('2')
             table.date('trnDate').index()
@@ -17,7 +17,7 @@ class CldtracehtransSchema extends Schema {
             table.string('trnDest', 3).index()
             table.string('trnsubdest', 13)
             table.string('trnAcc', 10).index()
-            table.string('TrnName', 35)
+            table.string('trnName', 35)
             table.text('trnAlm1')
             table.string('trnAlm2', 35)
             table.string('trnAlm3', 35)
@@ -25,6 +25,8 @@ class CldtracehtransSchema extends Schema {
             table.string('trnPost', 5)
             table.string('trnPhone', 15)
             table.string('trnFax', 15)
+            table.string('trnEmail', 30)
+            table.enu('trnSttsEn', ['False', 'True']).defaultTo('False')
             table.string('trnContact', 20)
             table.enu('trnTypeOfPackage', ['DOC', 'SPS']).defaultTo('SPS')
             table.string('trnTypeOfService', 3).defaultTo('REG')
@@ -37,6 +39,7 @@ class CldtracehtransSchema extends Schema {
             table.string('trnConsPost', 5)
             table.string('trnConsPhone', 15)
             table.string('trnConsFax', 64)
+            table.string('trnConsEmail', 30)
             table.string('trnConsContact')
             table.decimal('trnDim_H', 8, 2).notNullable().defaultTo(0.00)
             table.decimal('trnDim_W', 8, 2).notNullable().defaultTo(0.00)
@@ -77,6 +80,7 @@ class CldtracehtransSchema extends Schema {
             table.date('trnrequestpickup')
             table.time('trnrequestpickuptime')
             table.date('trnuploaddate')
+            table.timestamps()
         })
     }
 

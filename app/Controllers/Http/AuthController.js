@@ -8,6 +8,10 @@ class AuthController {
         return response.view.render('login')
     }
 
+    async showreg({ request, response, view }) {
+        return response.view.render('register')
+    }
+
     async register({ request, auth, response }) {
 
         let user = await User.create(request.all())
@@ -22,7 +26,7 @@ class AuthController {
 
     // async show
 
-    async login({ request, auth, response }) {
+    async login({ request, auth, response, view }) {
 
         let email = request.input('email')
         let password = request.input('password')
@@ -48,7 +52,19 @@ class AuthController {
             // console.log(data_auth);
             // return response.route('testauth');
         } catch (e) {
-            return response.status(202).json({ "message": "You need to register" })
+            return response.view.render('register')
+        }
+
+    }
+
+    async logout({ auth, response }) {
+        try {
+            const apiToken = auth.getAuthHeader()
+            await auth.authenticator("jwt").revokeTokens([apiToken])
+
+            return response.status(200).json({ "message": "Logout success" })
+        } catch (e) {
+            return response.status(400).json({ "message": "Logout not success" })
         }
 
     }

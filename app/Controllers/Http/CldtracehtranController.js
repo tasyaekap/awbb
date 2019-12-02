@@ -1,6 +1,7 @@
 'use strict'
 const Database = use('Database')
 const Data = use('App/Models/Cldtracehtran')
+const { validate } = use('Validator')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -10,6 +11,7 @@ const Data = use('App/Models/Cldtracehtran')
  * Resourceful controller for interacting with cldtracehtrans
  */
 class CldtracehtranController {
+
     /**
      * Show a list of all cldtracehtrans.
      * GET cldtracehtrans
@@ -21,6 +23,12 @@ class CldtracehtranController {
      */
     async index({ request, response, view }) {
         return view.render('awb')
+
+    }
+
+    async showdash({ request, response, view }) {
+
+        return view.render('dashboard')
     }
 
     async showawb({ params, request, response, view }) {
@@ -61,6 +69,7 @@ class CldtracehtranController {
         data.trnPhone = request.input('trnPhone')
         data.trnFax = request.input('trnFax')
         data.trnContact = request.input('trnContact')
+        data.trnEmail = request.input('trnEmail')
         data.trnConsName = request.input('trnConsName')
         data.trnConsAlm1 = request.input('trnConsAlm1')
         data.trnConsAlm2 = request.input('trnConsAlm2')
@@ -70,6 +79,7 @@ class CldtracehtranController {
         data.trnConsPhone = request.input('trnConsPhone')
         data.trnConsFax = request.input('trnConsFax')
         data.trnConsContact = request.input('trnConsContact')
+        data.trnConsEmail = request.input('trnConsEmail')
         data.trnSpecialInstruction = request.input('trnSpecialInstruction')
         data.trnOrg = request.input('trnOrg')
         data.trnDest = request.input('trnDest')
@@ -81,8 +91,10 @@ class CldtracehtranController {
         data.trnrequestpickup = request.input('trnrequestpickup')
         data.trnrequestpickuptime = request.input('trnrequestpickuptime')
 
-        await data.save();
+        await data.save()
+
     }
+
 
     /**
      * Display a single cldtracehtran.
@@ -98,6 +110,12 @@ class CldtracehtranController {
 
 
     }
+
+    async md5({ params, view }) {
+
+
+    }
+
 
     /**
      * Render a form to update an existing cldtracehtran.

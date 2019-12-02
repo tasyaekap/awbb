@@ -13,52 +13,74 @@ webix.ready(function(){
     
     webix.i18n.setLocale();
 
-    webix.ui({ responsive:true, container:"form",
+    webix.ui({ responsive:true, container:"form", 
     rows: [
-        { type:"space",
+        {type:"space",
         cols:[ 
             
             {
-            view: "form", id: "frmShip", elements : [
+            view: "form", id: "frmShip", rules:{
+             "trnName":webix.rules.isNotEmpty,
+              "trnAlm1":webix.rules.isNotEmpty,
+              "trnAlm2":webix.rules.isNotEmpty,
+              "trnAlm3":webix.rules.isNotEmpty,
+              "trnCity":webix.rules.isNotEmpty,
+            "trnPhone":webix.rules.isNumber,
+            "trnFax":webix.rules.isNumber,
+            "trnPost":webix.rules.isNumber,
+              "trnEmail":webix.rules.isEmail
+            } , elements : [
                 
                 { cols:[ 
                     
                     { rows:[
                     {view:"text", id:"trnNoHAWBsort", name: "trnNoHAWB", hidden:true},
                     { view:"template", template:"Pengirim", type:"header" },
-                    { view:"text", id: "trnName", name: "trnName", label:"Nama Shipper", labelPosition: "top" },
-                    { view:"text", id: "trnAlm1", name: "trnAlm1", label:"Alamat", labelPosition: "top" },
+                    { view:"text", id: "trnName", name: "trnName", label:"Nama Shipper", labelPosition: "top" , invalidMessage:"Kolom nama harus diisi!" },
+                    { view:"text", id: "trnAlm1", name: "trnAlm1", label:"Alamat Pengirim", labelPosition: "top" },
                     { view:"text", id: "trnAlm2", name: "trnAlm2", label:"&nbsp;", labelPosition: "top" },
-                    { view:"text", id: "trnAlm3", name: "trnAlm3", label:"&nbsp;", labelPosition: "top" },
+                    { view:"text", id: "trnAlm3", name: "trnAlm3", label:"&nbsp;", labelPosition: "top", invalidMessage:"Kolom alamat harus diisi!" },
                     { cols:[
-                        { view:"text", id: "trnCity", name: "trnCity", label:"Kota", labelPosition: "top"},
-                        { view:"text", id: "trnPost", name: "trnPost", label:"Kodepos", labelPosition: "top" },
+                        { view:"text", id: "trnCity", name: "trnCity", label:"Kota Asal", labelPosition: "top", invalidMessage:"Kolom kota harus diisi!"},
+                        { view:"text", id: "trnPost", name: "trnPost", label:"Kodepos", labelPosition: "top", invalidMessage:"Harus diisi dengan angka!" },
                     ]},
                     { cols:[
-                        { view:"text", id: "trnPhone", name: "trnPhone", label:"Telp", labelPosition: "top" },
-                        { view:"text", id: "trnFax", name: "trnFax", label:"Fax", labelPosition: "top" },
+                        { view:"text", id: "trnPhone", name: "trnPhone", label:"Telp", labelPosition: "top" , invalidMessage:"Harus diisi dengan angka!"},
+                        { view:"text", id: "trnFax", name: "trnFax", label:"Fax", labelPosition: "top",  invalidMessage:"Harus diisi dengan angka!" },
                     ]},
+                    { view:"text", id: "trnEmail", name: "trnEmail", label:"Email Pengirim", labelPosition: "top", invalidMessage:"Isi Email sesuai dengan kaidah!" },
                     { view:"text", id: "trnContact", name: "trnContact", label:"Nama Pengirim", labelPosition: "top" }
                     ]},
                 ]}
         ]
                 },
-                {view: "form", id: "frmCons",  elements:[
+                {view: "form", id: "frmCons", rules:{
+                 "trnConsName":webix.rules.isNotEmpty,
+              "trnConsAlm1":webix.rules.isNotEmpty,
+              "trnConsAlm2":webix.rules.isNotEmpty,
+              "trnConsAlm3":webix.rules.isNotEmpty,
+              "trnConsCity":webix.rules.isNotEmpty,
+            "trnConsPhone":webix.rules.isNumber,
+            "trnConsFax":webix.rules.isNumber,
+            "trnConsPost":webix.rules.isNumber,
+                "trnConsEmail":webix.rules.isEmail
+            } ,  elements:[
                 
                 { rows:[
                  { view:"template", template:"Penerima", type:"header" },
-                { view:"text", id: "trnConsName", name: "trnConsName", label:"Nama Consigne", labelPosition: "top" },
+                { view:"text", id: "trnConsName", name: "trnConsName", label:"Nama Consigne", labelPosition: "top"  , invalidMessage:"Kolom nama harus diisi!" },
                 { view:"text", id: "trnConsAlm1", name: "trnConsAlm1", label:"Alamat", labelPosition: "top" },
                 { view:"text", id: "trnConsAlm2", name: "trnConsAlm2", label:"&nbsp;", labelPosition: "top" },
-                { view:"text", id: "trnConsAlm3", name: "trnConsAlm3", label:"&nbsp;", labelPosition: "top" },
+                { view:"text", id: "trnConsAlm3", name: "trnConsAlm3", label:"&nbsp;", labelPosition: "top", invalidMessage:"Kolom alamat harus diisi!" },
                 { cols:[
-                    { view:"text", id: "trnConsCity", name: "trnConsCity", label:"Kota", labelPosition: "top" },
-                    { view:"text", id: "trnConsPost", name: "trnConsPost", label:"Kodepos", labelPosition: "top" },
+                    { view:"text", id: "trnConsCity", name: "trnConsCity", label:"Kota", labelPosition: "top", invalidMessage:"Kolom kota harus diisi!" },
+                    { view:"text", id: "trnConsPost", name: "trnConsPost", label:"Kodepos", labelPosition: "top" ,  invalidMessage:"Harus diisi dengan angka!"},
                 ]},
                 { cols:[
-                    { view:"text", id: "trnConsPhone", name: "trnConsPhone", label:"Telp", labelPosition: "top" },
-                    { view:"text", id: "trnConsFax", name: "trnConsFax", label:"Fax", labelPosition: "top" },
+                    { view:"text", id: "trnConsPhone", name: "trnConsPhone", label:"Telp", labelPosition: "top",  invalidMessage:"Harus diisi dengan angka!" },
+                    { view:"text", id: "trnConsFax", name: "trnConsFax", label:"Fax", labelPosition: "top",  invalidMessage:"Harus diisi dengan angka!" },
                 ]},
+                   { view:"text", id: "trnConsEmail", name: "trnConsEmail", label:"Email Penerima", labelPosition: "top", invalidMessage:"Isi Email sesuai dengan kaidah!" },
                 { view:"text", id: "trnConsContact", name: "trnConsContact", label:"Nama Penerima", labelPosition: "top" }
                 ]}
                 ]
@@ -119,14 +141,18 @@ webix.ready(function(){
             ]
             }, 
             {
-            view: "form", id: "frmPicU",  elements: [
+            view: "form", id: "frmPicU", rules:{
+                 "trnrequestpickup":webix.rules.isNotEmpty,
+                  "trnrequestpickuptime":webix.rules.isNotEmpty
+            },  elements: [
             { rows:[
             { view:"template", template:"Request Pickup", type:"header" },
             { view:"datepicker", id:"trnrequestpickup", name: "trnrequestpickup", label:"Request Pickup Date", 
-                labelPosition: "top", format:"%Y-%m-%d", stringResult:true, format:webix.i18n.parseTimeFormat = "%Y-%m-%d",  
+                labelPosition: "top", format:"%Y-%m-%d", stringResult:true, format:webix.i18n.parseTimeFormat = "%Y-%m-%d", invalidMessage:"Harap isi tanggal pickup!"
+
             },
             { view:"datepicker", id:"trnrequestpickuptime", name: "trnrequestpickuptime", label:"Request Pickup Time", 
-                type:"time", labelPosition: "top", format:"%H:%i:%s", stringResult:true, format:webix.i18n.parseTimeFormat = "%H:%i:%s",  
+                type:"time", labelPosition: "top", format:"%H:%i:%s", stringResult:true, format:webix.i18n.parseTimeFormat = "%H:%i:%s", invalidMessage:"Harap isi waktu pickup!"
             }
             ]}
         ]
@@ -194,29 +220,30 @@ $$("trnCity").attachEvent("onBlur", function(values){
 
 
 
- function print(){
+function print(){
 
-    if ($$("frmDetail").validate()){
-      webix.message("Correct data!");
-      
+if ($$("frmShip").validate()){
+  if ($$("frmDetail").validate()){
+    if ($$("frmCons").validate()){
+      if ($$("frmPicU").validate()){
         var ins = [];
-        var val =  $$("frmShip").getValues();
-        var val1 = $$("frmCons").getValues();
-        var val2 = $$("frmDesc").getValues();
-        var val3 = $$("frmOrgDest").getValues();
-        var val4 = $$("frmDetail").getValues();
-        var val5 = $$("frmPicU").getValues();
+      var val =  $$("frmShip").getValues();
+      var val1 = $$("frmCons").getValues();
+      var val2 = $$("frmDesc").getValues();
+      var val3 = $$("frmOrgDest").getValues();
+      var val4 = $$("frmDetail").getValues();
+      var val5 = $$("frmPicU").getValues();
 
-        ins = {...val,...val1,...val2,...val3,...val4,...val5}
-        console.log(ins)
-        $$("tbl1").add(ins);
-      	 	
-      window.open("http://localhost:3333/print/" + noawb )
-   
-    } else {
-      webix.alert("Perbaiki data yang telah diinput!");
+      ins = {...val,...val1,...val2,...val3,...val4,...val5}
+      console.log(ins)
+      $$("tbl1").add(ins);
+      window.open("http://localhost:3333/finish/" + noawb )
+      }
     }
-    
+  }
+} else {
+webix.alert("Perbaiki data yang telah diinput!");
+}
     
    
  };
@@ -231,16 +258,11 @@ $$("trnConsCity").attachEvent("onBlur", function(values){
 	});
 });
 
- window.grecaptcha.render($$("capcha").$view, {
+  window.grecaptcha.render($$("capcha").$view, {
  sitekey:"6Lck4LwUAAAAAD3Ivayzg306xt5FPN8OlDVMBoIj"
 });
 
-
   
 });
-
-
-
-
 </script> 
 @endsection

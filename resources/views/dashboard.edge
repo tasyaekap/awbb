@@ -1,27 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../webix.css" type="text/css">
-    <script src="../webix.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.7.94/css/materialdesignicons.css" type="text/css" charset="utf-8">
 
-    <title>Document</title>
-</head>
-<body>
-    <div id="cs"></div>
-    <script>
-        
+
+
 data = "http://localhost:3333/showawb"
- var tabel = {
+var popup = {
+  view:"popup",
+  id:"win1",
+  height:150,
+  width:200,
+  autoheight:"true",
+  body:{
+    template:"Test"
+  }
+}
+var form = {
+  view:"form", scroll:true , id:"frm1", elements:[
+    { view:"text", label:"No. AWB ",labelWidth:160, name:"trnNoHAWB", id:"trnNoHAWB", disabled:true},
+    { view:"text", label:"Nama Pengirim ",labelWidth:160, name:"trnName", id:"trnName", disabled:true},
+    { view:"text", label:"Alamat  ",labelWidth:160, name:"trnAlm1", id:"trnAlm1", disabled:true },
+    { view:"text", label:" ",labelWidth:160, name:"trnAlm2", id:"trnAlm2", disabled:true },
+    { view:"text", label:" ",labelWidth:160, name:"trnAlm3", id:"trnAlm3",  disabled:true },
+    { view:"text", label:"Kota Asal ",labelWidth:160, name:"trnCity", id:"trnCity", disabled:true },
+    { view:"text", label:"No. Telp ",labelWidth:160, name:"trnPhone", id:"trnPhone", disabled:true },
+    { view:"text", label:"Atas Nama ",labelWidth:160, name:"trnContact", id:"trnContact", disabled:true },
+    { view:"text", label:"Nama Penerima ",labelWidth:160, name:"trnConsName", id:"trnConsName", disabled:true },
+    { view:"text", label:"Alamat Penerima",labelWidth:160, name:"trnConsAlm1", id:"trnConsAlm1", disabled:true },
+    { view:"text", label:" ",labelWidth:160, name:"trnConsAlm2", id:"trnConsAlm2", disabled:true },
+    { view:"text", label:" ",labelWidth:160, name:"trnConsAlm3", id:"trnConsAlm3", disabled:true },
+    { view:"text", label:"Kota Tujuan ",labelWidth:160, name:"trnConsCity", id:"trnConsCity", disabled:true },
+    { view:"text", label:"No. Telp ",labelWidth:160, name:"trnConsPhone", id:"trnConsPhone", disabled:true },
+    { view:"text", label:"No. Telp Penerima",labelWidth:160, name:"trnConsContact", id:"trnConsContact", disabled:true },
+    { view:"text", label:"Berat ",labelWidth:160, name:"trnchargeswt", id:"trnchargeswt", disabled:true },
+    { cols:[
+                { view:"text", id:"trnDim_H", name: "trnDim_H", label:"Dimensi",labelWidth:160, disabled:true },
+                { view:"text", id:"trnDim_W", name: "trnDim_W"  , disabled:true },
+                { view:"text", id:"trnDim_L", name: "trnDim_L" , disabled:true},
+            ]},
+     { view:"text", label:"Pickup ",labelWidth:160, name:"trnpickup", id:"trnpickup", disabled:true },
+     { view:"text", label:"Waktu Pickup ",labelWidth:160, name:"trnpickuptime", id:"trnpickuptime", disabled:true },
+     { view:"radio", name:"gr1", label:"Dikirim Ke",labelWidth:160, options:["TICS", "PICS", "KICS"] },
+     {
+      margin:5, cols:[
+        { view:"button", value:"Cancel", click:cancel },
+        { view:"button", css:"webix_primary", value:"Save", click:function(){
+          var values = $$('frm1').getValues();
+          $$("win1").show(this.$view, { pos: "top"});
+          console.log(values)
+          var temp = $$('win1').getBody();
+           temp.define('template', "<b>Kolom konten whatsapp</b></br> Terimakasih telah melakukan pemesanan. Pesanan telah diproses dengan detail, nama pengirim: "+ values.trnName + " Dan dengan pihak penerima: " + values.trnConsName +" Barang akan di pickup pada tanggal: " );
+           temp.refresh();
+        }},
+        { view:"button", value:"Print", click:print },
+      ]
+    }
+    
+  ]
+}
+
+ var tabel = { rows:[{ 
+					view:"toolbar",
+					elements:[
+						{ width:4 },
+						{ view:"label", label:"Transactions", width:150 },
+						{ minWidth:4 }
+					]
+				},{
     view:"datatable",
     url:data,
     columns:[
              { id: "trnNoHAWB" , header : "No. AWB", width: 120 },
-             { id: "Status" , header : "Status", width: 120 },
-      		 { id: "TrnName" , header : "Ship. Name", width: 100 },
+      		 { id: "trnName" , header : "Ship. Name", width: 100 },
       		 { id: "trnAlm1" , header : "Alm1", width: 100 },
       		 { id: "trnAlm2" , header : "Alm2", width: 100 },
       		 { id: "trnAlm3" , header : "Alm3", width: 100 },
@@ -41,117 +88,73 @@ data = "http://localhost:3333/showawb"
              { id: "trnpickup" , header : "Pickup Data", width: 100 },
       		 { id: "trnpickuptime" , header : "Pickup Time", width: 100 },	 
       		 { id: "trnOrg" , header : "TLC ORG", width: 100 },
-      		 { id: "trnDest" , header : "TLC DEST", width: 100 }
+      		 { id: "trnDest" , header : "TLC DEST", width: 100 },
       	
       ] , 
     id:"tbl1", 
     select:"row",
     save:"rest->http://localhost:3333/awb"
-      }
-var menu_data = [
-	{id: "dashboard", icon: "mdi mdi-view-dashboard", value: "Dashboards",  data:[
-		{ id: "dashboard1", value: "Dashboard 1"},
-		{ id: "dashboard2", value: "Dashboard 2"}
-	]},
-	{id: "layouts", icon: "mdi mdi-view-column", value:"Layouts", data:[
-		{ id: "accordions", value: "Accordions"},
-		{ id: "portlets", value: "Portlets"}
-	]},
-	{id: "tables", icon: "mdi mdi-table", value:"Data Tables", data:[
-		{ id: "tables1", value: "Datatable"},
-		{ id: "tables2", value: "TreeTable"},
-		{ id: "tables3", value: "Pivot"}
-	]},
-	{id: "uis", icon: "mdi mdi-puzzle", value:"UI Components", data:[
-		{ id: "dataview", value: "DataView"},
-		{ id: "list", value: "List"},
-		{ id: "menu", value: "Menu"},
-		{ id: "tree", value: "Tree"}
-	]},
-	{id: "demo", icon: "mdi mdi-book", value:"Documentation"}
-];
+      }]}
+ 
 
-webix.ready(function(){
-  webix.ui({ 
+var dashboard = { 
     rows: [
       { view: "toolbar", padding:3, elements: [
-        { view: "icon", icon: "mdi mdi-menu", click: function(){
-           $$("sidebar1").toggle();
-         }
-        },
-        { view: "label", label: "My App"},
+  
+        { view: "label", label: "  &nbsp  Dashboard"},
         {},
-        { view: "icon", icon: "mdi mdi-comment",  badge:4},
-        { view: "icon", icon: "mdi mdi-bell",  badge:10}
+        {view:"button", value:"logout", css:"webix_danger", inputWidth:120, align:"right", click:logout}
       ]
       },
       { cols:[
-        { id:"sidebar1",
-          view: "sidebar",
-          data: menu_data,
-          on:{
-            onAfterSelect: function(id){
-              webix.message("Selected: "+this.getItem(id).value)
-            }
-          }
-        },
         {  type:"space",
   rows:[ 
-    { 
-					view:"toolbar",
-					elements:[
-						{ width:4 },
-						{ view:"label", label:"Transactions", width:150 },
-						{ minWidth:4 },
-                        { view:"button", id:"sub", label:"Submitted", click: subb, width:"100" },
-                        { view:"button", id:"nopod",label:"No POD", click: nopod, width:"80"},
-                        { view:"button", id:"nosub",label:"No Submitted No POD", click: nosubb, width:"200"},
-                        { view:"button", id:"cancel",label:"Cancel", click: cancel, width:"80"},
-					]
-				},
-     tabel
+     {
+  padding:8,
+  id:"views",
+  cells:[
+    tabel,
+    form,
+  ]
+}
   ]
 }
       ]}
     ]
-  });
+  }
+webix.ready(function(){
 
-  function cancel (){ 
-  //get user input value
-  var value = "Cancelled"
-  $$("tbl1").filter(function(obj){
-    return obj.Status.toLowerCase().indexOf(value)!=-1;
-  })
-};
-
-  function nopod (){ 
-  //get user input value
-  var value = "No POD"
-  $$("tbl1").filter(function(obj){
-    return obj.Status.toLowerCase().indexOf(value)!=-1;
-  })
-};
-
-  function nosubb (){ 
-  //get user input value
-  var value = "Not Submitted"
-  $$("tbl1").filter(function(obj){
-    return obj.Status.toLowerCase().indexOf(value)!=-1;
-  })
-};
-
-function subb (){ 
-  //get user input value
-  var value = "Submitted"
-  webix.message("All is correct");
-  $$("tbl1").filter(function(obj){
-    return obj.Status.toLowerCase().indexOf(value)!=-1;
-  })
-};
-  
-
+  webix.ui(popup);
+ 
+  webix.ui( dashboard);
 }); 
-    </script>
-    
-</body>
-</html>
+
+$$('frm1').bind($$('tbl1'));
+
+$$("tbl1").attachEvent("onItemDblClick",function(id){
+  $$('frm1').show();
+});
+
+$$("trnNoHAWB").attachEvent("onItemClick",function(id){
+  var value = this.getValue();
+  var temp = $$('win1').getBody();
+       temp.define('template', 'test123');
+       temp.refresh();
+  webix.message(value)
+});
+
+function cancel(){
+  $$("views").back();
+};
+
+function print(){
+  var awb = $$("trnNoHAWB").getValue();
+  window.open("http://localhost:3333/print/" + awb)
+};
+
+function logout(){
+	 webix.ajax().post('http://localhost:3333/logout').then(function(respons){
+          window.open("http://localhost:3333/", "_self")
+   });
+}
+
