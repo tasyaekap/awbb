@@ -15,7 +15,7 @@
         <script> 
             var token = '';
             
-            var awb = "http://localhost:3333/awb";
+            var awb = "https://awb-cs.herokuapp.com/awb";
             
             var clear = function(){
                 $$("frmreg").clear();
@@ -23,7 +23,7 @@
             var onreg = function(){
             var isi = $$('frmreg').getValues();
             //console.log(isi);
-            var url = "http://localhost:3333/register"
+            var url = "https://awb-cs.herokuapp.com/register"
             webix.ajax().post(url, isi ).then(function(data){
                 // dataa = data.json();
                 // user = dataa.user.id

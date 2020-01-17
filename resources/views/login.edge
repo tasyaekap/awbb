@@ -15,7 +15,7 @@
         <script> 
             var token = '';
             
-            var awb = "http://localhost:3333/awb";
+            var awb = "https://awb-cs.herokuapp.com/awb";
             
             var clear = function(){
                 $$("frmlgn").clear();
@@ -24,7 +24,7 @@
             var isi = $$('frmlgn').getValues();
             //console.log(isi);
             webix.storage.cookie.remove("auth");
-            var url = "http://localhost:3333/login"
+            var url = "https://awb-cs.herokuapp.com/login"
             webix.ajax().post(url, isi ).then(function(data){
                 dataa = data.json();
                 user = dataa.user.id
@@ -48,8 +48,8 @@
                        width:300,
                        css: { margin:"auto" },
                        elements:[
-                            { value: "tasya@bla.com", view:"text", label:"Email" , name: "email" },
-                                            { value: "cobaa", view:"text", type:"password", label:"Password" , name: "password" },
+                            { view:"text", label:"Email" , name: "email" },
+                                            { view:"text", type:"password", label:"Password" , name: "password" },
                                             { margin:5, cols:[
                                                 { view:"button", label:"Login" , click: onlog },
                                                 { view:"button", label:"Cancel", click: clear }

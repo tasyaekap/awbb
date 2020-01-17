@@ -1,7 +1,7 @@
 
 
 
-data = "http://localhost:3333/showawb"
+data = "https://awb-cs.herokuapp.com/showawb"
 var popup = {
   view:"popup",
   id:"win1",
@@ -93,7 +93,7 @@ var form = {
       ] , 
     id:"tbl1", 
     select:"row",
-    save:"rest->http://localhost:3333/awb"
+    save:"rest->https://awb-cs.herokuapp.com/awb"
       }]}
  
 
@@ -149,12 +149,12 @@ function cancel(){
 
 function print(){
   var awb = $$("trnNoHAWB").getValue();
-  window.open("http://localhost:3333/print/" + awb)
+  window.open("https://awb-cs.herokuapp.com/print/" + awb)
 };
 
 function logout(){
-	 webix.ajax().post('http://localhost:3333/logout').then(function(respons){
-          window.open("http://localhost:3333/", "_self")
+	 webix.ajax().post('https://awb-cs.herokuapp.com/logout').then(function(respons){
+          window.open("https://awb-cs.herokuapp.com/", "_self")
    });
 }
 

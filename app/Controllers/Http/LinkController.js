@@ -13,7 +13,7 @@ class LinkController {
         var md5 = require("md5")
         const kode = md5(Data.trnNoHAWB)
 
-        const link = "http://localhost:3333/verif/" + kode;
+        const link = "https://awb-cs.herokuapp.com/verif/" + kode;
 
         await Mail.raw('Terimakasih telah melakukan pemesanan di Total Logistik, Harap verifikasi email yang disertakan dengan nomer AWB: ' + Data.trnNoHAWB + ' dengan mengklik link ini ' + link + " dalam jangka waktu 2 hari", (message) => {
             message.from('tasyaekaaputri@gmail.com')
