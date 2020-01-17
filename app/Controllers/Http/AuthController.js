@@ -14,14 +14,14 @@ class AuthController {
 
     async register({ request, auth, response }) {
 
-        let user = await User.create(request.all())
+        let userx = new User()
+        userx.username = request.input('username')
+        userx.email = request.input('email')
+        userx.password = request.input('password')
 
-        //generate token for user;
-        let token = await auth.generate(user)
+        await userx.save()
 
-        Object.assign(user, token)
-
-        return response.json(user)
+        return response.status(200).json(userx)
     }
 
     // async show
