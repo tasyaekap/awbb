@@ -28,7 +28,7 @@
             var isi = $$('frmlgn').getValues();
             //console.log(isi);
             webix.storage.cookie.remove("auth");
-            var url = "https://awb-cs.herokuapp.com//login"
+            var url = "/login"
             webix.ajax().post(url, isi ).then(function(data){
                 dataa = data.json();
                 user = dataa.user.id
