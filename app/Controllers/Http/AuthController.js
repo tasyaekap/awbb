@@ -5,11 +5,11 @@ const Tokens = use('App/Models/Tokenn')
 
 class AuthController {
     async showauth({ request, response, view }) {
-        return response.view.render('login')
+        return view.render('login')
     }
 
     async showreg({ request, response, view }) {
-        return response.view.render('register')
+        return view.render('register')
     }
 
     async register({ request, auth, response }) {
@@ -52,7 +52,7 @@ class AuthController {
             // console.log(data_auth);
             // return response.route('testauth');
         } catch (e) {
-            return response.view.render('register')
+            return view.render('register')
         }
 
     }
