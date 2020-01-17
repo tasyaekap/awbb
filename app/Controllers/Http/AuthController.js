@@ -28,31 +28,21 @@ class AuthController {
 
     async login({ request, auth, response, view }) {
 
-        let email = request.input('email')
-        let password = request.input('password')
-            // console.log(request);
+        let { email, password } = request.all();
 
         try {
-            // let data_auth = await auth.authenticator('jwt').withRefreshToken().attempt(email, password)
-            let data_auth = await auth.attempt(email, password);
+            if (await auth.attempt(email, password)) {
+                let user = await User.findBy('email', email)
+                let token = await auth.generate(user)
 
-            if (data_auth) {
-                let data_user = await User.findBy('email', email)
-                let data = {
-                    "user": data_user,
-                    "auth": data_auth
-                }
-                var usersid = data_user.id
-                var autho = "Bearer " + data_auth.token
-
-                return response.status(200).json(data); //
-
+                Object.assign(user, token)
+                return response.json(user)
             }
 
-            // console.log(data_auth);
-            // return response.route('testauth');
+
         } catch (e) {
-            return view.render('register')
+            console.log(e)
+            return response.json({ message: 'You are not registered!' })
         }
 
     }
