@@ -9,14 +9,13 @@
     <link rel="stylesheet" href="../css/fontawesome.css"/>
     <script src="../js/all.js" type="text/javascript"></script>
     <script src="../js/fontawesome.js" type="text/javascript"></script>
-    <script src="../webix.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.7.94/css/materialdesignicons.css" type="text/css" charset="utf-8">
-
+    <link rel="stylesheet" type="text/css" href="//cdn.materialdesignicons.com/2.7.94/css/materialdesignicons.css">
+    <script src="../webix.js" type="text/javascript"></script> 
     <title>Login Page</title>
 </head>
 <body>
     <div id="login">
-        <script> 
+       <script> 
             var token = '';
             
             var awb = "https://awb-cs.herokuapp.com/awb";
@@ -30,9 +29,11 @@
             webix.storage.cookie.remove("auth");
             var url = "/login"
             webix.ajax().post(url, isi ).then(function(data){
+                console.log(data)
                 dataa = data.json();
-                user = dataa.user.id
-                token = "Bearer " + dataa.auth.token
+                
+                token = "Bearer " + dataa.token
+                console.log(dataa.token)
                 webix.storage.cookie.put("auth", token);
 
                 window.open("/hosted","_self")
@@ -40,7 +41,7 @@
             }
 
             var lgn =      
-            {
+            {  view:"layout", responsive:"true",
                 rows:[
                     {},
                     {cols:[

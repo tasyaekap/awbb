@@ -1,7 +1,6 @@
 'use strict'
 
 const User = use('App/Models/User');
-const Tokens = use('App/Models/Tokenn')
 
 class AuthController {
     async showauth({ request, response, view }) {
@@ -37,6 +36,7 @@ class AuthController {
 
                 Object.assign(user, token)
                 return response.json(user)
+
             }
 
 
