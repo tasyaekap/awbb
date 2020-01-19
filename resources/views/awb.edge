@@ -1,11 +1,11 @@
 @layout('template')
 @section('content')
 <script>
-awb = "http://localhost:3333/showawb"
+awb = "https://awb-cs.herokuapp.com/showawb"
 webix.ready(function(){
   webix.i18n.parseTimeFormat = "%H:%i:%s";
     var noawb = '';
-    webix.ajax().get('http://localhost:3333/newawb').then(function(data){
+    webix.ajax().get('https://awb-cs.herokuapp.com/newawb').then(function(data){
        noawb = data.text();
        $$('trnNoHAWBsort').setValue(noawb);
     });
@@ -160,7 +160,7 @@ webix.ready(function(){
           {
               view:"form", id:" captcha", autoconfig:true, elements: [
                 {id:"capcha" },
-                { view:"button", id:"my_button", value:"Cetak AWBill", click:print}
+                { view:"button", id:"my_button", value:"Input awb", click:print}
               ]
             }
         ]
@@ -201,7 +201,7 @@ webix.ready(function(){
       ] , 
     id:"tbl1", 
     select:"row",
-    save:"rest->http://localhost:3333/awb"
+    save:"rest->https://awb-cs.herokuapp.com/awb"
       }
         
         
@@ -211,7 +211,7 @@ webix.ready(function(){
 $$("trnCity").attachEvent("onBlur", function(values){
    var value = this.getValue();
   webix.message(value);
-   webix.ajax().get("http://localhost:3333/kota/" + value ).then(function(data){
+   webix.ajax().get("https://awb-cs.herokuapp.com:3333/kota/" + value ).then(function(data){
         hasil = data.json();
         hasil = hasil[0][0].tlTlcCode
      	$$("trnOrg").setValue(hasil);
@@ -237,7 +237,7 @@ if ($$("frmShip").validate()){
       ins = {...val,...val1,...val2,...val3,...val4,...val5}
       console.log(ins)
       $$("tbl1").add(ins);
-      window.open("http://localhost:3333/finish/" + noawb )
+      window.open("https://awb-cs.herokuapp.com/finish/" + noawb )
       }
     }
   }
@@ -251,7 +251,7 @@ webix.alert("Perbaiki data yang telah diinput!");
 $$("trnConsCity").attachEvent("onBlur", function(values){
    var value = this.getValue();
   webix.message(value);
-   webix.ajax().get("http://localhost:3333/kota/" + value ).then(function(data){
+   webix.ajax().get("https://awb-cs.herokuapp.com/kota/" + value ).then(function(data){
         hasil = data.json();
         hasil = hasil[0][0].tlTlcCode
      	$$("trnDest").setValue(hasil);

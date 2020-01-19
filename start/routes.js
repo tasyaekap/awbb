@@ -21,7 +21,6 @@ Route.on('/reg').render('register')
 Route.post('/register', 'AuthController.register')
 Route.post('/login', 'AuthController.login')
 Route.post('logout', 'AuthController.logout')
-
 Route.get('showauth', 'AuthController.showawb')
 Route.get('awb', 'CldtracehtranController.index')
 Route.get('hosted', 'AwbController.hosted')
