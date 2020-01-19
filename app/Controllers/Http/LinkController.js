@@ -4,12 +4,10 @@ const data = use('App/Models/Cldtracehtran')
 const dlink = use('App/Models/Md5')
 
 class LinkController {
+
     async finish({ params, view }) {
-
         return view.render('success')
-
         var Data = await data.findBy('trnNoHAWB', params.trnnohawb);
-
         var md5 = require("md5")
         const kode = md5(Data.trnNoHAWB)
 
@@ -27,6 +25,7 @@ class LinkController {
         Md5.MD5 = kode
         Md5.trnNoHAWB = Data.trnNoHAWB
         await Md5.save()
+        return response.json(Data)
             // hasil.tglpickup = new Date(hasil.trnrequestpickup).toLocaleDateString("en-US");
             // return view.render('prnt', { hasil })
 
