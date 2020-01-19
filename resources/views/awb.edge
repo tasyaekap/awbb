@@ -211,7 +211,7 @@ webix.ready(function(){
 $$("trnCity").attachEvent("onBlur", function(values){
    var value = this.getValue();
   webix.message(value);
-   webix.ajax().get("https://awb-cs.herokuapp.com:3333/kota/" + value ).then(function(data){
+   webix.ajax().get("https://awb-cs.herokuapp.com/kota/" + value ).then(function(data){
         hasil = data.json();
         hasil = hasil[0][0].tlTlcCode
      	$$("trnOrg").setValue(hasil);
