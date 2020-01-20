@@ -106,13 +106,10 @@ class CldtracehtranController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
-        let data = await Data.find(params.trnNoHAWB)
+        console.log("kepanggil blay")
+        let data = await Data.findBy('trnNoHAWB', params.trnNoHAWB)
+        console.log(data)
         return response.status(200).json(data)
-    }
-
-    async md5({ params, view }) {
-
-
     }
 
 
