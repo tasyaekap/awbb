@@ -107,8 +107,7 @@ class CldtracehtranController {
      */
     async show({ params, request, response, view }) {
         let data = await Data.find(params.trnNoHAWB)
-
-
+        return response.status(200).json(data)
     }
 
     async md5({ params, view }) {
