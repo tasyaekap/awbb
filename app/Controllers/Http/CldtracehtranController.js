@@ -92,6 +92,7 @@ class CldtracehtranController {
         data.trnrequestpickuptime = request.input('trnrequestpickuptime')
 
         await data.save()
+        return response.json(data)
 
     }
 
